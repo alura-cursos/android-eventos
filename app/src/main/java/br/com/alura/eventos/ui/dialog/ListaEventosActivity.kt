@@ -8,6 +8,12 @@ import br.com.alura.eventos.dao.EventoDao
 import br.com.alura.eventos.databinding.ListaEventosBinding
 import br.com.alura.eventos.model.Evento
 import br.com.alura.eventos.recyclerview.adapter.ListaEventosAdapter
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDate.ofEpochDay
+import java.time.ZoneId
+import java.util.*
 
 class ListaEventosActivity : AppCompatActivity() {
 
@@ -33,7 +39,7 @@ class ListaEventosActivity : AppCompatActivity() {
     private fun configuraFAB() {
         binding.floatingActionButton.setOnClickListener {
             FormEventoDialog(this)
-                .show { eventoCriado ->
+                .show(supportFragmentManager) { eventoCriado ->
                     dao.salva(eventoCriado)
                     adapter.atualiza(dao.eventos)
                 }
